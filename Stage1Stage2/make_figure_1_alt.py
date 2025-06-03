@@ -98,8 +98,8 @@ im0 = ax[0].imshow(sci1_data_f300m,
                    cmap=cmap,
                    vmax = f300m_vmax,vmin=f300m_vmin,
                    origin='lower')
-ax[0].set_xlabel('x (mas)')
-ax[0].set_ylabel('y (mas)')
+ax[0].set_xlabel('$\Delta$x ($\prime\prime$)')
+ax[0].set_ylabel('$\Delta$y ($\prime\prime$)')
 ax[0].set_title('F300M - HD 141569A')
 #Add colorbar - force it to be the same height as the image
 cbar = plt.colorbar(im0,ax=ax[0],label='uJy/arcsec$^2$',fraction=0.046)
@@ -135,8 +135,8 @@ im0 = ax[1].imshow(sci1_data_f300m,
 
 ax[1].set_xlim(-5,5)
 ax[1].set_ylim(-5,5)
-ax[1].set_xlabel('x (mas)')
-ax[1].set_ylabel('y (mas)')
+ax[1].set_xlabel('$\Delta$x ($\prime\prime$)')
+ax[1].set_ylabel('$\Delta$y ($\prime\prime$)')
 ax[1].set_title('F300M - HD 141569A - Zoom')
 #Add colorbar - force it to be the same height as the image
 from matplotlib import ticker
@@ -152,8 +152,8 @@ im2 = ax[2].imshow(ref_data_f300M,
                                    vmax = f300m_ref_psf_max,
                                    vmin = f300m_vmin),
                    origin='lower')
-ax[2].set_xlabel('x (mas)')
-ax[2].set_ylabel('y (mas)')
+ax[2].set_xlabel('$\Delta$x ($\prime\prime$)')
+ax[2].set_ylabel('$\Delta$y ($\prime\prime$)')
 ax[2].set_title('F300M - PSF Reference')
 ax[2].set_xlim(-5,5)
 ax[2].set_ylim(-5,5)
@@ -165,7 +165,7 @@ plt.savefig("raw_data_f300m.png",dpi=300,bbox_inches="tight")
 plt.show()
 
 
-
+#Adding a comment. 
 
 
 
