@@ -10,3 +10,5 @@ This is a repository that holds the analysis scripts for Millar-Blanchaer et al.
 6. Deconvolution (Section 4): Deconvolve the disk image (after PSF-subtraction).
 7. Flux_Ratio (Section 5.2): Get the flux ratio between the two filters. 
 8. Planet_Sensitivity (Section 7): Calculate the contrast curves and get hte planet sensitivity.
+
+Authors: Max Millar-Blanchaer, Kellen Lawson
