@@ -1048,8 +1048,10 @@ ax.set_xlabel("Deprojected Radial Distance (au)")
 ax.set_ylabel("Normalized Surface Brightness")
 
 #From the best fit unconvolved model
-ax.semilogy(distances_au,raw_profile_f300m/star_flux_f300m/1e3*conversion_factor_f300m,color='C0',label="F300M - Unconvolved Model") #1e-3 to convert from mjy (star_flux) to uJy (image units from conversion_factor)
-ax.plot(distances_au,raw_profile_f360m/star_flux_f360m/1e3*conversion_factor_f300m,color='C0',label="F360M - Unconvolved Model",linestyle='--')
+unconvolved_profile_f300m = raw_profile_f300m/star_flux_f300m/1e3*conversion_factor_f300m
+unconvolved_profile_f360m = raw_profile_f360m/star_flux_f360m/1e3*conversion_factor_f300m
+ax.semilogy(distances_au,unconvolved_profile_f300m,color='C0',label="F300M - Unconvolved Model") #1e-3 to convert from mjy (star_flux) to uJy (image units from conversion_factor)
+ax.plot(distances_au,unconvolved_profile_f360m,color='C0',label="F360M - Unconvolved Model",linestyle='--')
 # The convolved MCMC Models
 import matplotlib.lines as mlines
 legend_line = mlines.Line2D([], [], color='k', label='F300M MCMC Samples')
@@ -1058,12 +1060,26 @@ for i in range(0,n_samples):
     ax.plot(distances_au,normalized_surface_brightness_f360m_model[i]/1e3*conversion_factor_f300m,alpha=0.1,color='k',linestyle='--')
 
 # The Deconvolved Data
-ax.plot(distances_au,deconvolved_surface_brightness_f300m/1e3,color='C3',label="F300M - Deconvolved Data")
-ax.plot(distances_au,deconvolved_surface_brightness_f360m/1e3,color='C3',label="F360M - Deconvolved Data",linestyle='--')
+deconvolved_f300m_profile = deconvolved_surface_brightness_f300m/1e3
+deconvolved_f360m_profile = deconvolved_surface_brightness_f360m/1e3
+ax.plot(distances_au,deconvolved_f300m_profile,color='C3',label="F300M - Deconvolved Data")
+ax.plot(distances_au,deconvolved_f360m_profile,color='C3',label="F360M - Deconvolved Data",linestyle='--')
 
 # The Data
-ax.plot(distances_au,normalized_surface_brightness_f300m/1e3*conversion_factor_f300m,color='C1',label="F300M - Data")
-ax.plot(distances_au,normalized_surface_brightness_f360m/1e3*conversion_factor_f300m,color='C1',label="F360M - Data",linestyle='--')
+data_f300m_profile = normalized_surface_brightness_f300m/1e3*conversion_factor_f300m
+data_f360m_profile = normalized_surface_brightness_f360m/1e3*conversion_factor_f300m 
+ax.plot(distances_au,data_f300m_profile,color='C1',label="F300M - Data")
+ax.plot(distances_au,data_f360m_profile,color='C1',label="F360M - Data",linestyle='--')
+
+
+#Put it all together: 
+stacked_data = np.vstack([distances_au,
+                          unconvolved_profile_f300m, unconvolved_profile_f360m,
+                          deconvolved_f300m_profile, deconvolved_f360m_profile, 
+                          ])
+
+np.savetxt("unconvolved_deconvolved_sb_profiles.csv",stacked_data, delimiter=',')
+
 
 legend_line_f300m = mlines.Line2D([], [], color='k', label='F300M MCMC Samples')
 legend_line_f360m = mlines.Line2D([], [], color='k', label='F360M MCMC Samples',linestyle='--')
